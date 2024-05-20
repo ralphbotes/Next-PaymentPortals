@@ -1,0 +1,20 @@
+{
+    "portals": [
+        {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4"},
+        {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png"}
+    ],
+    "steps": ["General Information","Select Payment Provider","Initiate Transaction","Request result","Redirect"],
+    "project_description": [
+        {"type": "h4", "value": "Payment Portals Showcase: PayGate and eNets"},
+        {"type": "body1", "value": "This project is designed to demonstrate the integration and functionality of two popular payment portals: PayGate and eNets."},
+        {"type": "body1", "value": "The objective is to provide a comprehensive guide on how to implement these portals to handle transaction requests, manage user redirections to the respective payment portals, and process query responses effectively."},
+        {"type": "h5", "value": "Implementation Details:"},
+        {"type": "h6", "value": "Transaction Requests:"},
+        {"type": "body1", "value": "The project includes detailed examples of how to configure and send transaction requests to both PayGate and eNets. It covers the necessary API endpoints, required parameters, and how to securely transmit transaction data."},
+        {"type": "h6", "value": "Redirects to Portals:"},
+        {"type": "body1", "value": "Upon initiating a transaction, users are seamlessly redirected to the appropriate payment portal (PayGate or eNets) to complete their payment. The project demonstrates how to handle these redirects and ensure a smooth user experience."},
+        {"type": "h6", "value": "Handling Queries:"},
+        {"type": "body1", "value": "Post-transaction, the project provides examples of how to handle queries from the payment portals. This includes confirming the status of transactions, handling successful payments, and managing failed or incomplete transactions."},
+        {"type": "body1", "value": "This project is intended for educational purposes, offering developers a clear and concise reference for integrating PayGate and eNets into their own applications."}
+    ]
+}
