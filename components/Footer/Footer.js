@@ -1,6 +1,8 @@
+import styles from './Footer.module.css';
+
 const Footer = () => {
     return (
-        <footer>
+        <footer className={styles.fixed_footer}>
             Copyright 2024
         </footer>
     );

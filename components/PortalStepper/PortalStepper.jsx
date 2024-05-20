@@ -70,9 +70,7 @@ export default function PortalStepper() {
 
   return (
     <Box className={styles.main_stepper_box}>
-      <Stepper activeStep={activeStep} orientation="vertical" sx={{
-        width: '80%'
-      }}>
+      <Stepper activeStep={activeStep} orientation="vertical" className={styles.stepper_component}>
         {steps.map((step, index) => (
           <Step key={step}>
             <StepLabel

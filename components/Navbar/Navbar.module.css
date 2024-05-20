@@ -1,0 +1,38 @@
+.nav_box {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #000000;
+}
+
+.nav_container {
+    max-width: 900px;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #cccccc00;
+}
+
+.logo {
+    height: 80px;
+    border-radius: 10px;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+    transform: scale(1.2);
+}
+
+.nav_links {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.nav_links:hover {
+    color: rgb(82, 111, 251);
+}

@@ -3,6 +3,10 @@
     justify-content: center;
 }
 
+.stepper_component {
+    width: 800px;
+}
+
 .stepper_portals_box {
     display: flex;
     gap: 20px;
