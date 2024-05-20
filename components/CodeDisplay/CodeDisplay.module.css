@@ -1,0 +1,17 @@
+.code_box {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.code_container {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    background-color: #282c34;
+}
+
+.code_header_text {
+    color: #61dafb;
+    margin-bottom: 10px;
+}
