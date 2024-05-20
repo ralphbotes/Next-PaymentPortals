@@ -1,0 +1,16 @@
+.main_stepper_box {
+    display: flex;
+    justify-content: center;
+}
+
+.stepper_portals_box {
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+}
+
+.project_descryption {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
