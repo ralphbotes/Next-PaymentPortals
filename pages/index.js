@@ -1,7 +1,7 @@
 import { Inter } from '@next/font/google'
 import Head from "next/head";
 import { Box, Divider, Typography } from '@mui/material';
-import PortalStepper from "../components/PortalStepper"
+import PortalStepper from "../components/PortalStepper/PortalStepper"
 
 const inter = Inter({ subsets: ['latin'] })
 
