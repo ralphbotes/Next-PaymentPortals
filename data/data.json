@@ -31,5 +31,23 @@
         "code": "import React from 'react';\nimport { Box } from '@mui/material';\n\nconst App = () => {\n  return (\n    <Box sx={{ padding: 2 }}>\n      Hello, world!\n    </Box>\n  );\n};\n\nexport default App;",
         "language": "javascript"
       }
+    },
+    "enets": {
+      "portal_info": [
+        {"type": "body1", "value": "eNets is a leading online payment gateway in Asia, providing secure and reliable payment solutions for businesses. "},
+        {"type": "body1", "value": "For developers seeking to integrate eNets into their applications, the "},
+        {"type": "body1", "link": true, "value": "eNets Developer Portal", "src": "https://developer.nets.com.sg/"},
+        {"type": "body1", "value": " offers comprehensive documentation and resources. "},
+        {"type": "body1","value": "Detailed technical guides and API references can be accessed in the "},
+        {"type": "body1", "link": true, "value": "eNets Documentation", "src": "https://developer.nets.com.sg/guide/"},
+        {"type": "body1", "value": ", facilitating seamless integration and management of online payments."},
+        {"type": "body1","value": "eNets also includes a functional "},
+        {"type": "body1", "link": true, "value": "sandbox", "src": "https://uat2.enets.sg/demo/soapi.html"},
+        {"type": "body1","value": " for testing."}
+      ],
+      "initialize": {
+        "code": "import React from 'react';\nimport { Box } from '@mui/material';\n\nconst App = () => {\n  return (\n    <Box sx={{ padding: 2 }}>\n      Hello, world!\n    </Box>\n  );\n};\n\nexport default App;",
+        "language": "javascript"
+      }
     }
 }
