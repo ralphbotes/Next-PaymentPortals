@@ -18,3 +18,12 @@
     background-color: #f5f5f5;
     border-radius: 10px;
 }
+
+.typography_link {
+    color: blue;
+}
+
+.typography_link:hover {
+    color: rgb(69, 0, 148);
+    cursor: pointer;
+}

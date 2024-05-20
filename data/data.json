@@ -3,7 +3,7 @@
         {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4"},
         {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png"}
     ],
-    "steps": ["General Information","Select Payment Provider","Initiate Transaction","Request result","Redirect"],
+    "steps": ["General Information","Select Payment Provider","Portal Info","Initiate Transaction","Request result","Redirect"],
     "project_description": [
         {"type": "h4", "value": "Payment Portals Showcase: PayGate and eNets"},
         {"type": "body1", "value": "This project is designed to demonstrate the integration and functionality of two popular payment portals: PayGate and eNets."},
@@ -16,5 +16,20 @@
         {"type": "h6", "value": "Handling Queries:"},
         {"type": "body1", "value": "Post-transaction, the project provides examples of how to handle queries from the payment portals. This includes confirming the status of transactions, handling successful payments, and managing failed or incomplete transactions."},
         {"type": "body1", "value": "This project is intended for educational purposes, offering developers a clear and concise reference for integrating PayGate and eNets into their own applications."}
-    ]
+    ],
+    "paygate": {
+      "portal_info": [
+        {"type": "body1", "value": "PayGate is a versatile payment gateway that provides businesses with secure and efficient payment processing solutions. It supports various payment methods, including credit cards, mobile payments, and bank transfers. "},
+        {"type": "body1", "value": "For developers looking to integrate PayGate into their applications, the "},
+        {"type": "body1", "link": true, "value": "PayGate Developer Portal", "src": "https://map.paygate.co.za/login.php"},
+        {"type": "body1", "value": " offers comprehensive resources and tools. "},
+        {"type": "body1", "value": "Detailed integration guidelines and API references can be found in the "},
+        {"type": "body1", "link": true, "value": "PayGate Documentation", "src": "https://docs.paygate.co.za/"},
+        {"type": "body1", "value": ", making it easier to implement and manage payment transactions seamlessly."}
+      ],
+      "initialize": {
+        "code": "import React from 'react';\nimport { Box } from '@mui/material';\n\nconst App = () => {\n  return (\n    <Box sx={{ padding: 2 }}>\n      Hello, world!\n    </Box>\n  );\n};\n\nexport default App;",
+        "language": "javascript"
+      }
+    }
 }

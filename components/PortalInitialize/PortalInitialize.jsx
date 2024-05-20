@@ -1,26 +1,15 @@
 import CodeDisplay from '../CodeDisplay/CodeDisplay';
 import styles from './PortalInitialize.module.css';
+import data from '../../data/data';
 
 export default function PortalInitialize({portal}) {
 
-    const sampleCode = `
-import React from 'react';
-import { Box } from '@mui/material';
-
-const App = () => {
-  return (
-    <Box sx={{ padding: 2 }}>
-      Hello, world!
-    </Box>
-  );
-};
-
-export default App;
-`;
+    const sampleCode = data[portal.name].initialize.code
+    const sampleLanguage = data[portal.name].initialize.language
 
     return (
         <>
-            <CodeDisplay code={sampleCode} language={'javascript'} />
+            <CodeDisplay code={sampleCode} language={sampleLanguage} />
         </>
     )
 }

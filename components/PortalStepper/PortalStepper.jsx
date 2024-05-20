@@ -7,7 +7,7 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import { Typography, Link } from '@mui/material';
 import ImageButton from '../ImageButton/ImageButton';
 import PortalInitialize from '../PortalInitialize/PortalInitialize';
 import styles from './PortalStepper.module.css';
@@ -80,6 +80,26 @@ export default function PortalStepper() {
                     </Paper>
                 )}
                 {activeStep === 2 && (
+                    <Paper square elevation={1} sx={{ p: 3 }}>
+                      <Typography variant="h5">Rundown</Typography>
+                      <Typography variant="body1">
+                        {data[portals[selectedPortal].name].portal_info.map((item, idx) => (
+                          "link" in item ? (
+                            <span key={idx}>
+                              <Link href={item.src} className={styles.typography_link} target="_blank" rel="noopener noreferrer">
+                                {item.value}
+                              </Link>
+                            </span>
+                          ) : (
+                            <span key={idx}>
+                              {item.value}
+                            </span>
+                          )
+                        ))}
+                      </Typography>
+                    </Paper>
+                )}
+                {activeStep === 3 && (
                     <Paper square elevation={1} sx={{ p: 3 }}>
                       <PortalInitialize portal={portals[selectedPortal]} />
                     </Paper>
