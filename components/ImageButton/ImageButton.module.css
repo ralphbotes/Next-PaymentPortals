@@ -1,0 +1,20 @@
+.image_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: transform .2s;
+}
+
+.image_container:hover {
+    transform: scale(1.1);
+}
+
+.image_box {
+    width: inherit;
+    height: fit-content;
+}
