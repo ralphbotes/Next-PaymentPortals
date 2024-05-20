@@ -7,7 +7,7 @@ const Navbar = () => {
             <Box 
                 className='logo' 
                 component={'img'} 
-                src='/logo_temp.png' 
+                src='/testlogo.png' 
                 alt='Logo' 
             />
             <Link href='/'>Home</Link>
