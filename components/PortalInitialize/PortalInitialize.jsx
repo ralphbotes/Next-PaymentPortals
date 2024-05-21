@@ -1,12 +1,12 @@
 import CodeDisplay from '../CodeDisplay/CodeDisplay';
 import styles from './PortalInitialize.module.css';
 import data from '../../data/data';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import initiate_paygate from "../../pages/api/initiate_paygate";
 import { useState } from 'react';
 
 export default function PortalInitialize({portal}) {
-    const [initiatePayRequest, setInitiatePayRequest] = useState({});
+    const [initiatePayRequest, setInitiatePayRequest] = useState(null);
 
     const sampleCode = data[portal.name].initialize.code
     const sampleLanguage = data[portal.name].initialize.language
@@ -31,7 +31,10 @@ export default function PortalInitialize({portal}) {
                         Initiate transaction request
                     </Button>
                 :
-                <CodeDisplay code={initiatePayRequest} language={"javascript"} />
+                    <>
+                        <Typography variant={'h6'}>Response:</Typography>
+                        <Typography>{initiatePayRequest}</Typography>
+                    </>
             }
         </>
     )
