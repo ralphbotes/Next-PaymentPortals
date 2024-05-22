@@ -12,10 +12,12 @@ import ImageButton from '../ImageButton/ImageButton';
 import PortalInitialize from '../PortalInitialize/PortalInitialize';
 import styles from './PortalStepper.module.css';
 import data from '../../data/data';
+import RequestRedirect from '../RequestRedirect/RequestRedirect';
 
 export default function PortalStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedPortal, setSelectedPortal] = useState(-1)
+  const [initiatePayRequest, setInitiatePayRequest] = useState([]);
   
   const portals = data.portals;
   const steps = data.steps;
@@ -36,6 +38,12 @@ export default function PortalStepper() {
     setSelectedPortal(a_value)
     handleNext()
   };
+
+  const handle_request = async () => {
+    if (data[portals[selectedPortal].name] === "paygate") {
+        console.log("")
+    }
+}
 
   return (
     <Box className={styles.main_stepper_box}>
@@ -101,7 +109,12 @@ export default function PortalStepper() {
                 )}
                 {activeStep === 3 && (
                     <Paper square elevation={1} sx={{ p: 3 }}>
-                      <PortalInitialize portal={portals[selectedPortal]} />
+                      <PortalInitialize portal={portals[selectedPortal]} initiatePayRequest={initiatePayRequest} setInitiatePayRequest={setInitiatePayRequest} />
+                    </Paper>
+                )}
+                {activeStep === 4 && (
+                    <Paper square elevation={1} sx={{ p: 3 }}>
+                      <RequestRedirect portal={portals[selectedPortal]} handleRedirect={handle_request} initiatePayRequest={initiatePayRequest} />
                     </Paper>
                 )}
                 <Box sx={{ mb: 2 }}>
@@ -111,8 +124,9 @@ export default function PortalStepper() {
                             variant="contained"
                             onClick={handleNext}
                             sx={{ mt: 1, mr: 1 }}
+                            disabled={activeStep === 3 && initiatePayRequest.length < 1}
                         >
-                            {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                            {index === steps.length - 1 ? 'Redirect' : 'Continue'}
                         </Button>
                     )}
                     <Button
