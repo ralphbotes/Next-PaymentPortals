@@ -3,7 +3,7 @@
         {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4"},
         {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png"}
     ],
-    "steps": ["General Information","Select Payment Provider","Portal Info","Initiate Transaction","Request result","Redirect"],
+    "steps": ["General Information","Select Payment Provider","Portal Info","Initiate Transaction Request","Request redirect"],
     "project_description": [
         {"type": "h4", "value": "Payment Portals Showcase: PayGate and eNets"},
         {"type": "body1", "value": "This project is designed to demonstrate the integration and functionality of two popular payment portals: PayGate and eNets."},
@@ -28,8 +28,36 @@
         {"type": "body1", "value": ", making it easier to implement and manage payment transactions seamlessly."}
       ],
       "initialize": {
+        "description": "The merchant begins the process by posting a detailed Request to PayWeb.\nField names posted to PayWeb should all be UPPERCASE as described in the table.",
+        "pre_req_table": [
+          {"field": "PAYGATE_ID", "type": "varchar(20)","required": true},
+          {"field": "REFERENCE", "type": "varchar(110)","required": true},
+          {"field": "AMOUNT", "type": "varchar(20)","required": true},
+          {"field": "CURRENCY", "type": "varchar(5)","required": true},
+          {"field": "RETURN_URL", "type": "varchar(255)","required": true},
+          {"field": "TRANSACTION_DATE", "type": "datetime","required": true},
+          {"field": "LOCALE", "type": "varchar(5)","required": true},
+          {"field": "COUNTRY", "type": "varchar(5)","required": true},
+          {"field": "EMAIL", "type": "varchar(255)","required": true},
+          {"field": "PAY_METHOD", "type": "varchar(5)","required": false},
+          {"field": "PAY_METHOD_DETAIL", "type": "varchar(45)","required": false},
+          {"field": "NOTIFY_URL", "type": "Text","required": false},
+          {"field": "USER1", "type": "varchar(255)","required": false},
+          {"field": "USER2", "type": "varchar(255)","required": false},
+          {"field": "USER3", "type": "varchar(255)","required": false},
+          {"field": "VAULT", "type": "tinyint(3)","required": false},
+          {"field": "VAULT_ID", "type": "varchar(40)","required": false},
+          {"field": "CHECKSUM", "type": "varchar(40)","required": true}
+        ],
+        "result": "The result is returned as a text string where keys and values are sperated by equal signs(=) and key-value pairs are seperated by ampersands(&). The response will be used next during the redirect request.",
         "code": "import CryptoJS from 'crypto-js';\n\nexport default async function initiate_paygate() {\n  // Encryption key\n  const encryptionKey = 'secret';\n  \n  // Create the data object\n  const data = {\n    PAYGATE_ID: '10011072130',\n    REFERENCE: 'pgtest_123456789',\n    AMOUNT: '3299',\n    CURRENCY: 'ZAR',\n    RETURN_URL: 'https://my.return.url/page',\n    TRANSACTION_DATE: new Date().toISOString().slice(0, 19).replace('T', ' '),\n    LOCALE: 'en-za',\n    COUNTRY: 'ZAF',\n    EMAIL: 'customer@paygate.co.za'\n  };\n\n  // Create checksum\n  const checksumString = Object.values(data).join('') + encryptionKey;\n  const checksum = CryptoJS.MD5(checksumString).toString();\n\n  // Add checksum to the data\n  data.CHECKSUM = checksum;\n\n  // Convert data to URL-encoded string\n  const fieldsString = new URLSearchParams(data).toString();\n\n  // Define the request options\n  const requestOptions = {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/x-www-form-urlencoded',\n      'Referer': window.location.hostname\n    },\n    body: fieldsString\n  };\n\n  try {\n    // Send the POST request\n    const res = await fetch('https://secure.paygate.co.za/payweb3/initiate.trans', requestOptions);\n    if (res.ok) {\n      return await res.text();\n    } else {\n      throw new Error('Network response was not ok');\n    }\n  } catch (error) {\n    return { \"Error\": `An error occurred during the request: ${error.message}` };\n  }\n}",
-        "language": "javascript"
+        "language": "javascript",
+        "post_req_table": [
+          {"field": "PAYGATE_ID", "type": "varchar(20)"},
+          {"field": "PAY_REQUEST_ID", "type": "varchar(36)"},
+          {"field": "REFERENCE", "type": "varchar(110)"},
+          {"field": "CHECKSUM", "type": "varchar(32)"}
+        ]
       }
     },
     "enets": {
