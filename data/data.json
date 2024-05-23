@@ -49,6 +49,8 @@
           {"field": "VAULT_ID", "type": "varchar(40)","required": false},
           {"field": "CHECKSUM", "type": "varchar(40)","required": true}
         ],
+        "pre_req_table_title": "Pre-request Table",
+        "pre_req_table_description": "",
         "result": "The result is returned as a text string where keys and values are sperated by equal signs(=) and key-value pairs are seperated by ampersands(&). The response will be used next during the redirect request.",
         "code": "import CryptoJS from 'crypto-js';\n\nexport default async function initiate_paygate() {\n  // Encryption key\n  const encryptionKey = 'secret';\n  \n  // Create the data object\n  const data = {\n    PAYGATE_ID: '10011072130',\n    REFERENCE: 'pgtest_123456789',\n    AMOUNT: '3299',\n    CURRENCY: 'ZAR',\n    RETURN_URL: 'https://my.return.url/page',\n    TRANSACTION_DATE: new Date().toISOString().slice(0, 19).replace('T', ' '),\n    LOCALE: 'en-za',\n    COUNTRY: 'ZAF',\n    EMAIL: 'customer@paygate.co.za'\n  };\n\n  // Create checksum\n  const checksumString = Object.values(data).join('') + encryptionKey;\n  const checksum = CryptoJS.MD5(checksumString).toString();\n\n  // Add checksum to the data\n  data.CHECKSUM = checksum;\n\n  // Convert data to URL-encoded string\n  const fieldsString = new URLSearchParams(data).toString();\n\n  // Define the request options\n  const requestOptions = {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/x-www-form-urlencoded',\n      'Referer': window.location.hostname\n    },\n    body: fieldsString\n  };\n\n  try {\n    // Send the POST request\n    const res = await fetch('https://secure.paygate.co.za/payweb3/initiate.trans', requestOptions);\n    if (res.ok) {\n      return await res.text();\n    } else {\n      throw new Error('Network response was not ok');\n    }\n  } catch (error) {\n    return { \"Error\": `An error occurred during the request: ${error.message}` };\n  }\n}",
         "language": "javascript",
@@ -57,7 +59,25 @@
           {"field": "PAY_REQUEST_ID", "type": "varchar(36)"},
           {"field": "REFERENCE", "type": "varchar(110)"},
           {"field": "CHECKSUM", "type": "varchar(32)"}
-        ]
+        ],
+        "post_req_table_title": "Response Table",
+        "post_req_table_description": ""
+      },
+      "redirect": {
+        "description": "",
+        "pre_req_table": [
+          {"field": "", "type": "","required": true}
+        ],
+        "pre_req_table_title": "",
+        "pre_req_table_description": "",
+        "result": "",
+        "code": "",
+        "language": "javascript",
+        "post_req_table": [
+          {"field": "", "type": ""}
+        ],
+        "post_req_table_title": "",
+        "post_req_table_description": ""
       }
     },
     "enets": {
