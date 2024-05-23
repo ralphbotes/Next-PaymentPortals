@@ -1,0 +1,26 @@
+.modal_container {
+    background-color: #e4e4e40c;
+}
+
+.modal_box_container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #ffffff;
+    border: 1px solid #3f3f3f;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal_children_container {
+    width: inherit;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.close_button {
+    padding: 8px;
+    margin-top: 20px;
+}

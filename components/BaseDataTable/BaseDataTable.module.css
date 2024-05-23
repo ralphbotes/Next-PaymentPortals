@@ -1,0 +1,11 @@
+.table_head {
+    background-color: rgb(101, 101, 255);
+}
+
+.table_head th {
+    font-weight: bold;
+}
+
+.table_body tr:nth-child(even) {
+    background-color: rgb(230, 230, 230);
+}

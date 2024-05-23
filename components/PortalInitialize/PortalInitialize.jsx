@@ -4,8 +4,15 @@ import data from '../../data/data';
 import { Button, Box, Typography } from '@mui/material';
 import initiate_paygate from "../../pages/api/initiate_paygate";
 import ReplayIcon from '@mui/icons-material/Replay';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import BaseModal from '../BaseModal/BaseModal';
+import { useState } from 'react';
+import BaseDataTable from '../BaseDataTable/BaseDataTable';
 
 export default function PortalInitialize({portal, initiatePayRequest, setInitiatePayRequest}) {
+    const [openPreReqTableModal, setOpenPreReqTableModal] = useState(false);
+    const [openPostReqTableModal, setOpenPostReqTableModal] = useState(false);
+
     const handle_request = async () => {
         if (portal.name === "paygate") {
             const request = await initiate_paygate();
@@ -21,6 +28,13 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
         <>
             <Typography variant={'h6'}>Description:</Typography>
             <Typography>{data[portal.name].initialize.description}</Typography>
+            <Button 
+                variant="outlined" 
+                startIcon={<TextSnippetIcon />}
+                onClick={() => setOpenPreReqTableModal(true)}
+            >
+                Detailed Request Params
+            </Button>
 
             <Typography variant={'h6'}>Request Code:</Typography>
             <CodeDisplay code={data[portal.name].initialize.code} language={data[portal.name].initialize.language} />
@@ -43,6 +57,13 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
                             ))
                         }
                         </Box>
+                        <Button 
+                            variant="outlined" 
+                            startIcon={<TextSnippetIcon />}
+                            onClick={() => setOpenPostReqTableModal(true)}
+                        >
+                            Detailed Response Params
+                        </Button>
                         <Typography>{data[portal.name].initialize.result}</Typography>
                         <Button 
                         variant="contained" 
@@ -53,6 +74,28 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
                         </Button>
                     </>
             }
+            <BaseModal 
+                handleClose={setOpenPreReqTableModal} 
+                open={openPreReqTableModal} 
+                children={
+                    <BaseDataTable 
+                        rows={data[portal.name].initialize.pre_req_table} 
+                        title={data[portal.name].initialize.pre_req_table_title} 
+                        description={data[portal.name].initialize.pre_req_table_description} 
+                    />
+                } 
+            />
+            <BaseModal 
+                handleClose={setOpenPostReqTableModal} 
+                open={openPostReqTableModal} 
+                children={
+                    <BaseDataTable 
+                        rows={data[portal.name].initialize.post_req_table} 
+                        title={data[portal.name].initialize.post_req_table_title} 
+                        description={data[portal.name].initialize.post_req_table_description} 
+                    />
+                } 
+            />
         </>
     )
 }
