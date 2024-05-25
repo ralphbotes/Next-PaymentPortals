@@ -64,21 +64,29 @@
         "post_req_table_description": ""
       },
       "redirect": {
-        "description": "",
+        "description": "The collected data from PayGate is used then to redirect the client to the secure PayWeb payment page and passes only the PAY_REQUEST_ID and CHECKSUM fields.",
         "pre_req_table": [
-          {"field": "", "type": "","required": true}
+          {"field": "PAY_REQUEST_ID", "type": "varchar(36)","required": true},
+          {"field": "CHECKSUM", "type": "varchar(32)","required": true}
         ],
-        "pre_req_table_title": "",
+        "pre_req_table_title": "Redirect form paramaters",
         "pre_req_table_description": "",
-        "result": "",
-        "code": "",
-        "language": "javascript",
-        "post_req_table": [
-          {"field": "", "type": ""}
-        ],
-        "post_req_table_title": "",
-        "post_req_table_description": ""
-      }
+        "code": "const handle_request = async () => {\n  // Initial request to start the redirect\n  if (portals[selectedPortal].name === 'paygate') {\n    let redirect_data = {\n      'submit_url': 'https://secure.paygate.co.za/payweb3/process.trans',\n      'form_list': []\n    };\n\n    for (const item of initiatePayRequest) {\n      if (item.includes('PAY_REQUEST_ID') || item.includes('CHECKSUM')) {\n        const parts = processPayGateString(item);\n        if (parts) {\n          const form_item = {'key': parts[0], 'value': parts[1]};\n          redirect_data['form_list'].push(form_item);\n        }\n      }\n    }\n\n    // Now redirect using the form function\n    await FormRedirect(redirect_data);\n  }\n}\n\nfunction processPayGateString(input) {\n  // Remove the trailing '&' if it exists\n  if (input.endsWith('&')) {\n    input = input.slice(0, -1);\n  }\n\n  // Split the string at '='\n  const parts = input.split('=');\n\n  return parts;\n}\n\nexport default async function FormRedirect(a_data) {\n  // Create a hidden form element\n  const form = document.createElement('form');\n  form.style.display = 'none'; // Hide the form\n\n  // Set form attributes\n  form.method = 'POST';\n  form.action = a_data['submit_url'];\n\n  // Add form fields\n  for (const item of a_data['form_list']) {\n    const requestIdInput = document.createElement('input');\n    requestIdInput.type = 'hidden';\n    requestIdInput.name = item['key'];\n    requestIdInput.value = item['value'];\n    form.appendChild(requestIdInput);\n  }\n\n  // Append the form to the document body\n  document.body.appendChild(form);\n\n  // Submit the form\n  form.submit();\n}",
+        "language": "javascript"
+      },
+      "card_data": [
+        {"brand": "Visa", "number": "4000000000000002", "result": "Approved Transaction", "result_code": 1},
+        {"brand": "MasterCard", "number": "5200000000000015", "result": "Approved Transaction", "result_code": 1},
+        {"brand": "AmericanExpress", "number": "378282246310005", "result": "Approved Transaction", "result_code": 1},
+        {"brand": "Visa", "number": "4000000000000028", "result": "Insufficient Funds Transaction", "result_code": 0},
+        {"brand": "MasterCard", "number": "5200000000000023", "result": "Insufficient Funds Transaction", "result_code": 0},
+        {"brand": "AmericanExpress", "number": "371449635398431", "result": "Insufficient Funds Transaction", "result_code": 0},
+        {"brand": "Visa", "number": "4000000000000036", "result": "Declined Transaction", "result_code": -1},
+        {"brand": "MasterCard", "number": "5200000000000049", "result": "Declined Transaction", "result_code": -1},
+        {"brand": "AmericanExpress", "number": "30569309025904", "result": "Declined Transaction", "result_code": -1},
+        {"brand": "MasterCard", "number": "5200000000000064", "result": "Unprocessed Transaction", "result_code": 0}
+      ],
+      "card_data_description": "Expiry Date must be in the future; Card Holder & CVV can be made up."
     },
     "enets": {
       "portal_info": [

@@ -12,6 +12,7 @@ import ImageButton from '../ImageButton/ImageButton';
 import PortalInitialize from '../PortalInitialize/PortalInitialize';
 import styles from './PortalStepper.module.css';
 import data from '../../data/data';
+import FormRedirect from '@/libs/FormRedirect';
 import RequestRedirect from '../RequestRedirect/RequestRedirect';
 
 export default function PortalStepper() {
@@ -24,6 +25,9 @@ export default function PortalStepper() {
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === steps.length - 1) {
+      handle_request();
+    }
   };
 
   const handleBack = () => {
@@ -39,11 +43,40 @@ export default function PortalStepper() {
     handleNext()
   };
 
-  const handle_request = async () => {
-    if (data[portals[selectedPortal].name] === "paygate") {
-        console.log("")
+  function processPayGateString(input) {
+    // Remove the trailing '&' if it exists
+    if (input.endsWith('&')) {
+        input = input.slice(0, -1);
     }
-}
+
+    // Split the string at '='
+    const parts = input.split('=');
+
+    return parts;
+  }
+
+  const handle_request = async () => {
+    // Initial reguest to start the redirect
+    if (portals[selectedPortal].name === "paygate") {
+      let redirect_data = {
+        "submit_url": "https://secure.paygate.co.za/payweb3/process.trans",
+        "form_list": []
+      }
+
+      for (const item of initiatePayRequest) {
+        if (item.includes("PAY_REQUEST_ID") || item.includes("CHECKSUM")) {
+          const parts = processPayGateString(item);
+          if (parts) {
+            const form_item = {"key": parts[0], "value": parts[1]};
+            redirect_data["form_list"].push(form_item);
+          }
+        }
+      }
+
+      // Now redirect using the form function
+      await FormRedirect(redirect_data)
+    }
+  }
 
   return (
     <Box className={styles.main_stepper_box}>
@@ -114,7 +147,7 @@ export default function PortalStepper() {
                 )}
                 {activeStep === 4 && (
                     <Paper square elevation={1} sx={{ p: 3 }}>
-                      <RequestRedirect portal={portals[selectedPortal]} handleRedirect={handle_request} initiatePayRequest={initiatePayRequest} />
+                      <RequestRedirect portal={portals[selectedPortal]} initiatePayRequest={initiatePayRequest} />
                     </Paper>
                 )}
                 <Box sx={{ mb: 2 }}>

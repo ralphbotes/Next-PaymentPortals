@@ -3,14 +3,15 @@ import CryptoJS from 'crypto-js';
 export default async function initiate_paygate() {
   // Encryption key
   const encryptionKey = 'secret';
+  const merchantID = '10011072130';
 
   // Create the data object
   const data = {
-      PAYGATE_ID: '10011072130',
+      PAYGATE_ID: merchantID,
       REFERENCE: 'pgtest_123456789',
       AMOUNT: '3299',
       CURRENCY: 'ZAR',
-      RETURN_URL: 'https://my.return.url/page',
+      RETURN_URL: `https://${process.env.HOST}/`,
       TRANSACTION_DATE: new Date().toISOString().slice(0, 19).replace('T', ' '),
       LOCALE: 'en-za',
       COUNTRY: 'ZAF',

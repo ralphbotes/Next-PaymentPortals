@@ -1,0 +1,41 @@
+.pay_response_box {
+    background-color: rgb(202, 202, 202);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.cards_data_box {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.card_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
+}
+
+.card_approved {
+    font-weight: bold;
+    font-family: bold;
+    color: darkgreen
+}
+
+.card_declined {
+    font-weight: bold;
+    font-family: bold;
+    color: darkred
+}
+
+.card_other {
+    font-weight: bold;
+    font-family: bold;
+    color: darkgoldenrod
+}
