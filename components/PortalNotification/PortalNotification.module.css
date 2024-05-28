@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon_warning {
+    font-size: 80px;
+    color: rgb(255, 136, 0);
+}
+
+.icon_success {
+    font-size: 80px;
+    color: rgb(5, 153, 0);
+}
+
+.icon_error {
+    font-size: 80px;
+    color: red;
+}

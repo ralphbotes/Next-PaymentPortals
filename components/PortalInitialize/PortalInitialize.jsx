@@ -1,8 +1,8 @@
 import CodeDisplay from '../CodeDisplay/CodeDisplay';
 import styles from './PortalInitialize.module.css';
-import data from '../../data/data';
 import { Button, Box, Typography } from '@mui/material';
-import initiate_paygate from "../../pages/api/initiate_paygate";
+import initiate_paygate from "../../utils/api/initiate_paygate";
+import { getPortalData } from "../../utils/common_utils";
 import ReplayIcon from '@mui/icons-material/Replay';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import BaseModal from '../BaseModal/BaseModal';
@@ -12,6 +12,7 @@ import BaseDataTable from '../BaseDataTable/BaseDataTable';
 export default function PortalInitialize({portal, initiatePayRequest, setInitiatePayRequest}) {
     const [openPreReqTableModal, setOpenPreReqTableModal] = useState(false);
     const [openPostReqTableModal, setOpenPostReqTableModal] = useState(false);
+    const portalData = getPortalData(portal.name);
 
     const handle_request = async () => {
         if (portal.name === "paygate") {
@@ -27,7 +28,7 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
     return (
         <>
             <Typography variant={'h6'}>Description:</Typography>
-            <Typography>{data[portal.name].initialize.description}</Typography>
+            <Typography>{portalData.initialize.description}</Typography>
             <Button 
                 variant="outlined" 
                 startIcon={<TextSnippetIcon />}
@@ -37,7 +38,7 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
             </Button>
 
             <Typography variant={'h6'}>Request Code:</Typography>
-            <CodeDisplay code={data[portal.name].initialize.code} language={data[portal.name].initialize.language} />
+            <CodeDisplay code={portalData.initialize.code} language={portalData.initialize.language} />
             {
                 initiatePayRequest.length < 1 ?
                     <Button
@@ -64,7 +65,7 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
                         >
                             Detailed Response Params
                         </Button>
-                        <Typography>{data[portal.name].initialize.result}</Typography>
+                        <Typography>{portalData.initialize.result}</Typography>
                         <Button 
                         variant="contained" 
                         endIcon={<ReplayIcon />}
@@ -79,9 +80,9 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
                 open={openPreReqTableModal} 
                 children={
                     <BaseDataTable 
-                        rows={data[portal.name].initialize.pre_req_table} 
-                        title={data[portal.name].initialize.pre_req_table_title} 
-                        description={data[portal.name].initialize.pre_req_table_description} 
+                        rows={portalData.initialize.pre_req_table} 
+                        title={portalData.initialize.pre_req_table_title} 
+                        description={portalData.initialize.pre_req_table_description} 
                     />
                 } 
             />
@@ -90,9 +91,9 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
                 open={openPostReqTableModal} 
                 children={
                     <BaseDataTable 
-                        rows={data[portal.name].initialize.post_req_table} 
-                        title={data[portal.name].initialize.post_req_table_title} 
-                        description={data[portal.name].initialize.post_req_table_description} 
+                        rows={portalData.initialize.post_req_table} 
+                        title={portalData.initialize.post_req_table_title} 
+                        description={portalData.initialize.post_req_table_description} 
                     />
                 } 
             />

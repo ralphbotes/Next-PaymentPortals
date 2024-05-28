@@ -1,0 +1,32 @@
+{
+    "paygate": {
+        "0": {
+            "description": "Not Done",
+            "type": "warning"
+        },
+        "1": {
+            "description": "Approved",
+            "type": "success"
+        },
+        "2": {
+            "description": "Declined",
+            "type": "error"
+        },
+        "3": {
+            "description": "Cancelled",
+            "type": "error"
+        },
+        "4": {
+            "description": "User Cancelled",
+            "type": "error"
+        },
+        "5": {
+            "description": "Received by PayGate",
+            "type": "warning"
+        },
+        "7": {
+            "description": "Settlement Voided",
+            "type": "error"
+        }
+    }
+}

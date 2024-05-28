@@ -1,19 +1,20 @@
 import styles from "./RequestRedirect.module.css";
-import data from '../../data/data';
 import { Button, Box, Typography } from '@mui/material';
 import BaseModal from "../BaseModal/BaseModal";
 import BaseDataTable from '../BaseDataTable/BaseDataTable';
 import CodeDisplay from '../CodeDisplay/CodeDisplay';
 import { useState } from 'react';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import { project_paygate, getPortalData } from "../../utils/common_utils";
 
 export default function RequestRedirect({ portal, initiatePayRequest }) {
     const [openPreReqTableModal, setOpenPreReqTableModal] = useState(false);
+    const portalData = getPortalData(portal.name);
     
     return (
         <>
             <Typography variant={'h6'}>Description:</Typography>
-            <Typography>{data[portal.name].redirect.description}</Typography>
+            <Typography>{portalData.redirect.description}</Typography>
             <Button 
                 variant="outlined" 
                 startIcon={<TextSnippetIcon />}
@@ -32,7 +33,7 @@ export default function RequestRedirect({ portal, initiatePayRequest }) {
             </Box>
 
             <Typography variant={'h6'}>Request Code:</Typography>
-            <CodeDisplay code={data[portal.name].redirect.code} language={data[portal.name].initialize.language} />
+            <CodeDisplay code={portalData.redirect.code} language={portalData.initialize.language} />
 
             <Typography variant={'h6'}>Card Data:</Typography>
             <Typography variant={'body1'}>
@@ -40,7 +41,7 @@ export default function RequestRedirect({ portal, initiatePayRequest }) {
             </Typography>
             <Box className={styles.card_data_box}>
             {
-                data[portal.name].card_data.map((item,idx) => (
+                portalData.card_data.map((item,idx) => (
                     <Box className={styles.card_box}>
                         <Typography variant={'body1'}>{item.brand}</Typography>
                         <Typography variant={'h6'}>{item.number}</Typography>
@@ -54,16 +55,16 @@ export default function RequestRedirect({ portal, initiatePayRequest }) {
                 ))
             }
             </Box>
-            <Typography variant={'body1'}>{data[portal.name].card_data_description}</Typography>
+            <Typography variant={'body1'}>{portalData.card_data_description}</Typography>
 
             <BaseModal 
                 handleClose={setOpenPreReqTableModal} 
                 open={openPreReqTableModal} 
                 children={
                     <BaseDataTable 
-                        rows={data[portal.name].redirect.pre_req_table} 
-                        title={data[portal.name].redirect.pre_req_table_title} 
-                        description={data[portal.name].redirect.pre_req_table_description} 
+                        rows={portalData.redirect.pre_req_table} 
+                        title={portalData.redirect.pre_req_table_title} 
+                        description={portalData.redirect.pre_req_table_description} 
                     />
                 } 
             />

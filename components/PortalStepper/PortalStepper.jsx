@@ -11,21 +11,18 @@ import { Typography, Link } from '@mui/material';
 import ImageButton from '../ImageButton/ImageButton';
 import PortalInitialize from '../PortalInitialize/PortalInitialize';
 import styles from './PortalStepper.module.css';
-import data from '../../data/data';
-import FormRedirect from '@/libs/FormRedirect';
+import FormRedirect from '@/utils/FormRedirect';
 import RequestRedirect from '../RequestRedirect/RequestRedirect';
+import { project_data, project_steps, project_portals, project_description } from "../../utils/common_utils";
 
 export default function PortalStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedPortal, setSelectedPortal] = useState(-1)
   const [initiatePayRequest, setInitiatePayRequest] = useState([]);
-  
-  const portals = data.portals;
-  const steps = data.steps;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === steps.length - 1) {
+    if (activeStep === project_steps.length - 1) {
       handle_request();
     }
   };
@@ -57,7 +54,7 @@ export default function PortalStepper() {
 
   const handle_request = async () => {
     // Initial reguest to start the redirect
-    if (portals[selectedPortal].name === "paygate") {
+    if (project_portals[selectedPortal].name === "paygate") {
       let redirect_data = {
         "submit_url": "https://secure.paygate.co.za/payweb3/process.trans",
         "form_list": []
@@ -81,7 +78,7 @@ export default function PortalStepper() {
   return (
     <Box className={styles.main_stepper_box}>
       <Stepper activeStep={activeStep} orientation="vertical" className={styles.stepper_component}>
-        {steps.map((step, index) => (
+        {project_steps.map((step, index) => (
           <Step key={step}>
             <StepLabel
               optional={
@@ -97,7 +94,7 @@ export default function PortalStepper() {
                     <Paper square elevation={1} sx={{ p: 3 }}>
                       <Box className={styles.project_description}>
                         {
-                          data.project_description.map((item, idx) => (
+                          project_description.map((item, idx) => (
                             <Typography
                               key={idx}
                               variant={item.type}
@@ -113,7 +110,7 @@ export default function PortalStepper() {
                     <Paper square elevation={1} sx={{ p: 3 }}>
                         <Box className={styles.stepper_portals_box}>
                         {
-                            portals.map((portal,idx) => (
+                            project_portals.map((portal,idx) => (
                                 <ImageButton key={idx} id={idx} name={portal.name} src={portal.img} setSelected={handleSelectedPortal} />
                             ))
                         }
@@ -124,52 +121,54 @@ export default function PortalStepper() {
                     <Paper square elevation={1} sx={{ p: 3 }}>
                       <Typography variant="h5">Rundown</Typography>
                       <Typography variant="body1">
-                        {data[portals[selectedPortal].name].portal_info.map((item, idx) => (
-                          "link" in item ? (
-                            <span key={idx}>
-                              <Link href={item.src} className={styles.typography_link} target="_blank" rel="noopener noreferrer">
+                        {
+                          project_data[project_portals[selectedPortal].name].portal_info.map((item, idx) => (
+                            "link" in item ? (
+                              <span key={idx}>
+                                <Link href={item.src} className={styles.typography_link} target="_blank" rel="noopener noreferrer">
+                                  {item.value}
+                                </Link>
+                              </span>
+                            ) : (
+                              <span key={idx}>
                                 {item.value}
-                              </Link>
-                            </span>
-                          ) : (
-                            <span key={idx}>
-                              {item.value}
-                            </span>
-                          )
-                        ))}
+                              </span>
+                            )
+                          ))
+                        }
                       </Typography>
                     </Paper>
                 )}
                 {activeStep === 3 && (
                     <Paper square elevation={1} sx={{ p: 3 }}>
-                      <PortalInitialize portal={portals[selectedPortal]} initiatePayRequest={initiatePayRequest} setInitiatePayRequest={setInitiatePayRequest} />
+                      <PortalInitialize portal={project_portals[selectedPortal]} initiatePayRequest={initiatePayRequest} setInitiatePayRequest={setInitiatePayRequest} />
                     </Paper>
                 )}
                 {activeStep === 4 && (
                     <Paper square elevation={1} sx={{ p: 3 }}>
-                      <RequestRedirect portal={portals[selectedPortal]} initiatePayRequest={initiatePayRequest} />
+                      <RequestRedirect portal={project_portals[selectedPortal]} initiatePayRequest={initiatePayRequest} />
                     </Paper>
                 )}
                 <Box sx={{ mb: 2 }}>
-                    <div>
-                    {activeStep !== 1 && (
-                        <Button
-                            variant="contained"
-                            onClick={handleNext}
-                            sx={{ mt: 1, mr: 1 }}
-                            disabled={activeStep === 3 && initiatePayRequest.length < 1}
-                        >
-                            {index === steps.length - 1 ? 'Redirect' : 'Continue'}
-                        </Button>
-                    )}
-                    <Button
-                        disabled={index === 0}
-                        onClick={handleBack}
-                        sx={{ mt: 1, mr: 1 }}
-                    >
-                        Back
-                    </Button>
-                    </div>
+                    <>
+                      {activeStep !== 1 && (
+                          <Button
+                              variant="contained"
+                              onClick={handleNext}
+                              sx={{ mt: 1, mr: 1 }}
+                              disabled={activeStep === 3 && initiatePayRequest.length < 1}
+                          >
+                              {index === project_steps.length - 1 ? 'Redirect' : 'Continue'}
+                          </Button>
+                      )}
+                      <Button
+                          disabled={index === 0}
+                          onClick={handleBack}
+                          sx={{ mt: 1, mr: 1 }}
+                      >
+                          Back
+                      </Button>
+                    </>
                 </Box>
             </StepContent>
           </Step>
