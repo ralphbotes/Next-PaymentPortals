@@ -26,5 +26,5 @@ This is a Next.js web application designed to integrate various payment portals 
    - **ngrok authtoken <your_auth_token>**: Supplied on your ngrok dashboard
 
 4. **Run**
-   - **ngrok http 3000**: Start ngrok server. Then copy and paste the url supplied into the env file as your host.
+   - **ngrok http 3000**: Start ngrok server. Then copy and paste the url supplied into the env file as your host, and in the .vscode launch.json file.
    - **npm run dev**: Start the web-app server and redirect either to http://localhost:3000/ or the url supplied by ngrok (the one you copied in as your host).
