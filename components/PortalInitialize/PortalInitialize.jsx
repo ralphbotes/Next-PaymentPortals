@@ -77,26 +77,24 @@ export default function PortalInitialize({portal, initiatePayRequest, setInitiat
             }
             <BaseModal 
                 handleClose={setOpenPreReqTableModal} 
-                open={openPreReqTableModal} 
-                children={
-                    <BaseDataTable 
-                        rows={portalData.initialize.pre_req_table} 
-                        title={portalData.initialize.pre_req_table_title} 
-                        description={portalData.initialize.pre_req_table_description} 
-                    />
-                } 
-            />
+                open={openPreReqTableModal}
+            >
+                <BaseDataTable 
+                    rows={portalData.initialize.pre_req_table} 
+                    title={portalData.initialize.pre_req_table_title} 
+                    description={portalData.initialize.pre_req_table_description} 
+                />
+            </BaseModal>
             <BaseModal 
                 handleClose={setOpenPostReqTableModal} 
-                open={openPostReqTableModal} 
-                children={
-                    <BaseDataTable 
-                        rows={portalData.initialize.post_req_table} 
-                        title={portalData.initialize.post_req_table_title} 
-                        description={portalData.initialize.post_req_table_description} 
-                    />
-                } 
-            />
+                open={openPostReqTableModal}
+            >
+                <BaseDataTable 
+                    rows={portalData.initialize.post_req_table} 
+                    title={portalData.initialize.post_req_table_title} 
+                    description={portalData.initialize.post_req_table_description} 
+                />
+            </BaseModal>
         </>
     )
 }

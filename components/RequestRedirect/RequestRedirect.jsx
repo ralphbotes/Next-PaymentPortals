@@ -43,7 +43,7 @@ export default function RequestRedirect({ portal, initiatePayRequest }) {
             <Box className={styles.card_data_box}>
             {
                 portalData.card_data.map((item,idx) => (
-                    <Box className={styles.card_box}>
+                    <Box key={idx} className={styles.card_box}>
                         <Typography variant={'body1'}>{item.brand}</Typography>
                         <Typography variant={'h6'}>{item.number}</Typography>
                         <Typography 
@@ -61,14 +61,13 @@ export default function RequestRedirect({ portal, initiatePayRequest }) {
             <BaseModal 
                 handleClose={setOpenPreReqTableModal} 
                 open={openPreReqTableModal} 
-                children={
-                    <BaseDataTable 
-                        rows={portalData.redirect.pre_req_table} 
-                        title={portalData.redirect.pre_req_table_title} 
-                        description={portalData.redirect.pre_req_table_description} 
-                    />
-                } 
-            />
+            >
+                <BaseDataTable 
+                    rows={portalData.redirect.pre_req_table} 
+                    title={portalData.redirect.pre_req_table_title} 
+                    description={portalData.redirect.pre_req_table_description} 
+                />
+            </BaseModal>
         </>
     )
 }

@@ -1,16 +1,19 @@
-import Link from 'next/link'
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const NotFound = () => {
-    const router = useRouter(); // contains a method we can use to re-direct the user
+    const router = useRouter();
 
     useEffect(() => {
         // Start timer for 3 sec and re-direct
-        setTimeout(() => {
-            router.push('/')    // Re-direct user to home page
+        const timer = setTimeout(() => {
+            router.push('/'); // Re-direct user to home page
         }, 3000);
-    },[]);
+
+        // Clean up the timer if the component unmounts before the timeout is reached
+        return () => clearTimeout(timer);
+    }, [router]);
 
     return (
         <div className='not-found'>
