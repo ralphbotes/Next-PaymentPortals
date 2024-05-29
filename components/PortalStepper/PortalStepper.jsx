@@ -14,11 +14,15 @@ import styles from './PortalStepper.module.css';
 import FormRedirect from '@/utils/FormRedirect';
 import RequestRedirect from '../RequestRedirect/RequestRedirect';
 import { project_data, project_steps, project_portals, project_description } from "../../utils/common_utils";
+import ToastNotify from '../ToastNotify/ToastNotify';
 
 export default function PortalStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedPortal, setSelectedPortal] = useState(-1)
   const [initiatePayRequest, setInitiatePayRequest] = useState([]);
+  const [toastOpen, setToastOpen] = useState({
+    open: false, value: ""
+  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -35,9 +39,25 @@ export default function PortalStepper() {
     setActiveStep(0);
   };
 
+  const handleToastClose = () => {
+    setToastOpen(prevState => ({ 
+      ...prevState, 
+      open: false, 
+      value: "" 
+    }));
+  };
+
   const handleSelectedPortal = (a_value) => {
-    setSelectedPortal(a_value)
-    handleNext()
+    if (!project_portals[a_value].enabled) {
+      setToastOpen(prevState => ({ 
+        ...prevState, 
+        open: true, 
+        value: "Portal coming soon!" 
+      }));
+    } else {
+      setSelectedPortal(a_value)
+      handleNext()
+    }
   };
 
   function processPayGateString(input) {
@@ -174,6 +194,14 @@ export default function PortalStepper() {
           </Step>
         ))}
       </Stepper>
+      {
+        toastOpen && toastOpen.open &&
+          <ToastNotify 
+            open={toastOpen.open} 
+            handleClose={() => handleToastClose()} 
+            value={toastOpen.value}
+          />
+      }
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 {
     "portals": [
-        {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4"},
-        {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png"}
+        {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4", "enabled": true},
+        {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png", "enabled": false}
     ],
     "steps": ["General Information","Select Payment Provider","Portal Info","Initiate Transaction Request","Request redirect"],
     "project_description": [

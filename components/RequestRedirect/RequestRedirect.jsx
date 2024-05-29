@@ -5,7 +5,8 @@ import BaseDataTable from '../BaseDataTable/BaseDataTable';
 import CodeDisplay from '../CodeDisplay/CodeDisplay';
 import { useState } from 'react';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import { project_paygate, getPortalData } from "../../utils/common_utils";
+import Grid from '@mui/material/Grid';
+import { getPortalData } from "../../utils/common_utils";
 
 export default function RequestRedirect({ portal, initiatePayRequest }) {
     const [openPreReqTableModal, setOpenPreReqTableModal] = useState(false);
