@@ -11,7 +11,7 @@ export default async function initiate_paygate() {
       REFERENCE: 'pgtest_123456789',
       AMOUNT: '3299',
       CURRENCY: 'ZAR',
-      RETURN_URL: `https://${process.env.NEXT_PUBLIC_HOST}/api/paygateCallback`,
+      RETURN_URL: `https://${process.env.NEXT_PUBLIC_HOST}/paygateCallback`,
       TRANSACTION_DATE: new Date().toISOString().slice(0, 19).replace('T', ' '),
       LOCALE: 'en-za',
       COUNTRY: 'ZAF',
