@@ -37,10 +37,9 @@ function getNotificationData(a_payment_portal, a_body_data) {
     }
 
     if (a_payment_portal === "paygate") {
-        const data_list = splitTextFormData(a_body_data);
-        if (data_list && data_list["TRANSACTION_STATUS"] in portalEnums["paygate"]) {
-            const code_data = portalEnums["paygate"][data_list["TRANSACTION_STATUS"]]
-            notify_data["code"] = data_list["TRANSACTION_STATUS"]
+        if (a_body_data && a_body_data["TRANSACTION_STATUS"] in portalEnums["paygate"]) {
+            const code_data = portalEnums["paygate"][a_body_data["TRANSACTION_STATUS"]]
+            notify_data["code"] = a_body_data["TRANSACTION_STATUS"]
             notify_data["type"] = code_data["type"]
             notify_data["message"] = code_data["description"]
         }
@@ -59,7 +58,13 @@ export default function PortalNotification({ data }) {
     const bodyData = data.ppBody;
     const headersData = data.ppHeaders;
 
-    const paymentPortal = determinePaymentPortal(headersData)
+    let paymentPortal = {}
+    if (headersData) {
+        // Can determine using headers, if they are available
+        paymentPortal = determinePaymentPortal(headersData)
+    } if ("TRANSACTION_STATUS" in bodyData) {
+        paymentPortal = "paygate"
+    }
     const notification_data = getNotificationData(paymentPortal,bodyData)
 
     return (
