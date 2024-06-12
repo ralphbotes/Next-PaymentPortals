@@ -1,4 +1,5 @@
 {
+    "git_url": "https://github.com/ralphbotes/Next-PaymentPortals.git",
     "portals": [
         {"name":"paygate", "img": "https://avatars.githubusercontent.com/u/10938121?s=280&v=4", "enabled": true},
         {"name":"enets", "img": "https://www.ppro.com/wp-content/uploads/2021/06/eNETS_Logo.png", "enabled": false}
