@@ -123,6 +123,13 @@ export default function PortalStepper() {
                             </Typography>
                           ))
                         }
+                        <br />
+                        <Typography variant="body1">
+                            See code in {' '}
+                            <Link href={project_data["git_url"]} target="_blank" rel="noopener">
+                                Git
+                            </Link>.
+                        </Typography>
                       </Box>
                     </Paper>
                 )}
