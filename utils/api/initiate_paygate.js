@@ -1,17 +1,18 @@
-import CryptoJS from 'crypto-js';
+import {paygate_checksum,generateReference} from '../common_utils';
+import Cookies from 'js-cookie';
 
 export default async function initiate_paygate() {
-  // Encryption key
-  const encryptionKey = 'secret';
-  const merchantID = '10011072130';
+  // API Data
+  const encryptionKey = process.env.NEXT_PUBLIC_PAYGATE_SECRET;
+  const merchantID = process.env.NEXT_PUBLIC_PAYGATE_MERCHANT;
 
   // Create the data object
   const data = {
       PAYGATE_ID: merchantID,
-      REFERENCE: 'pgtest_123456789',
+      REFERENCE: generateReference(),
       AMOUNT: '3299',
       CURRENCY: 'ZAR',
-      RETURN_URL: `https://${process.env.NEXT_PUBLIC_HOST}/paygateCallback`,
+      RETURN_URL: `https://${process.env.NEXT_PUBLIC_HOST}`,
       TRANSACTION_DATE: new Date().toISOString().slice(0, 19).replace('T', ' '),
       LOCALE: 'en-za',
       COUNTRY: 'ZAF',
@@ -19,8 +20,7 @@ export default async function initiate_paygate() {
   };
 
   // Create checksum
-  const checksumString = Object.values(data).join('') + encryptionKey;
-  const checksum = CryptoJS.MD5(checksumString).toString();
+  const checksum = paygate_checksum(data,encryptionKey);
 
   // Add checksum to the data
   data.CHECKSUM = checksum;
@@ -42,7 +42,13 @@ export default async function initiate_paygate() {
     // Send the POST request
     const res = await fetch('https://secure.paygate.co.za/payweb3/initiate.trans', requestOptions);
     if (res.ok) {
-        return await res.text();
+        const response = await res.text();
+        Cookies.set('transactionData', JSON.stringify({
+            "portal": "paygate",
+            "transactionData": response
+        }), { expires: 1 })
+
+        return response;
     }
   } catch (error) {
       return { "Error": "An error occurred during the request" };
