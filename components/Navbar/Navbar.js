@@ -9,7 +9,7 @@ const Navbar = () => {
                 <Box 
                     className={styles.logo}
                     component={'img'} 
-                    src='/testlogo.png' 
+                    src='/logo.png' 
                     alt='Logo' 
                 />
                 <Link href='/' className={styles.nav_links}>Home</Link>
