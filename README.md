@@ -17,7 +17,9 @@ This is a Next.js web application designed to integrate various payment portals 
 
 2. **Env setup**
    Create a .env.local file and add your host url:
-   HOST=your-host-url-here
+   NEXT_PUBLIC_HOST=your-url.com/
+   NEXT_PUBLIC_PAYGATE_SECRET=secret
+   NEXT_PUBLIC_PAYGATE_MERCHANT=10011072130
 
 3. **Installs**
    Run the following commands in terminal:
